@@ -261,15 +261,18 @@ with its own session. Master one agent first.
 
 ## Cheat sheet
 
+Every AI step runs in a fresh session: `/clear` first, then the command.
+
 ```
-/task-brief <slug>                      1  you fill task.md
-/clear  /plan-feature .planning/<f>/task.md        2
-        (you review plan, commit task+plan)        3
-/clear  /implement .planning/<f>/plan.md           4–5
-        (you test, you review structure)           6–7  → bad: back to 4
-/clear  /review-diff .planning/<f>                 8   (+ Codex with same prompt)
-        (you decide each finding in findings.md)   9
-/clear  /iterate .planning/<f>/findings.md         → back to 8
-        only minor? → /review-diff .planning/<f> ship
-        (you read full diff, commit, PR, merge)    10–11, write summary.md
+1    /task-brief <slug>                        you fill task.md
+2    /plan-feature .planning/<f>/task.md
+3                                              you review the plan, commit task + plan
+4–5  /implement .planning/<f>/plan.md
+6–7                                            you test, you review structure → bad: back to 4
+8    /review-diff .planning/<f>                + Codex with the same prompt
+9                                              you decide each finding in findings.md
+     /iterate .planning/<f>/findings.md        back to 8
+     /review-diff .planning/<f> ship           only minor left: blockers only
+10–11                                          you read the full diff, commit, PR, merge,
+                                               write summary.md
 ```

@@ -41,15 +41,19 @@ docs/architecture.md      # how the system is built
 
 ## The loop in one screen
 
+Every AI step runs in a fresh session: `/clear` first, then the command.
+
 ```
-/task-brief <slug>                         1   you write task.md
-/clear  /plan-feature .planning/<f>/task.md        2   (you review the plan: 3)
-/clear  /implement .planning/<f>/plan.md           4–5 (you test and review structure: 6–7)
-/clear  /review-diff .planning/<f>                 8   (+ the same prompt in Codex)
-        you decide each finding in findings.md     9
-/clear  /iterate .planning/<f>/findings.md         → back to 8 until only minor findings
-/clear  /review-diff .planning/<f> ship            last round: blockers only
-        you read the full diff, commit, merge      10–11
+1    /task-brief <slug>                        you write task.md
+2    /plan-feature .planning/<f>/task.md
+3                                              you review the plan
+4–5  /implement .planning/<f>/plan.md
+6–7                                            you test and review structure
+8    /review-diff .planning/<f>                + the same prompt in Codex
+9                                              you decide each finding in findings.md
+     /iterate .planning/<f>/findings.md        back to 8 until only minor findings
+     /review-diff .planning/<f> ship           last round: blockers only
+10–11                                          you read the full diff, commit, merge
 ```
 
 One step per session; steps hand over through files in `.planning/`, never through chat
