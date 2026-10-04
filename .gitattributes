@@ -1,0 +1,2 @@
+# Keep LF everywhere: the prompts and scripts in these files are copied into other repos.
+* text=auto eol=lf
